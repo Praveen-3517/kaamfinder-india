@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Filter, Search as SearchIcon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import JobCard from '@/components/jobs/JobCard';
@@ -9,7 +9,7 @@ import { jobsAPI } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 
-export default function JobsPage() {
+function JobsPageContent() {
   const searchParams = useSearchParams();
   const { filters, updateFilter } = useJobFilters();
   const [jobs, setJobs] = useState<any[]>([]);
@@ -238,5 +238,13 @@ export default function JobsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div></div>}>
+      <JobsPageContent />
+    </Suspense>
   );
 }

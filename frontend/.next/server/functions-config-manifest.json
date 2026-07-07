@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/about":{},"/dashboard":{},"/jobs/[id]":{},"/jobs":{},"/login":{},"/":{},"/contact":{},"/register":{},"/post-job":{}}}
+{"version":1,"functions":{"/dashboard":{},"/about":{},"/jobs/[id]":{},"/login":{},"/jobs":{},"/post-job":{},"/":{},"/register":{},"/contact":{}}}
