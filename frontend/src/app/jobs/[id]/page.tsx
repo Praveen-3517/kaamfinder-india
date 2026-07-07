@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { jobsAPI } from '@/lib/api';
 
+export const dynamic = 'force-dynamic';
+
+
 export default function JobDetailsPage() {
   const params = useParams();
   const jobId = params.id;

@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import { MapPin, DollarSign, Briefcase, AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';

@@ -7,6 +7,8 @@ import JobCard from '@/components/jobs/JobCard';
 import { useJobFilters } from '@/hooks/useJobFilters';
 import { jobsAPI } from '@/lib/api';
 
+export const dynamic = 'force-dynamic';
+
 export default function JobsPage() {
   const searchParams = useSearchParams();
   const { filters, updateFilter } = useJobFilters();

@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '@/context/AuthContext';
 
+export const dynamic = 'force-dynamic';
 
 export default function RegisterPage() {
   const router = useRouter();

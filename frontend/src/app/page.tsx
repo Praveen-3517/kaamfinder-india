@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import { Search, MapPin, Briefcase, Users, Star, ArrowRight } from 'lucide-react';
 import JobCard from '@/components/jobs/JobCard';
