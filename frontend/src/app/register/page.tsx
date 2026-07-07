@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '@/context/AuthContext';
-import { Mail, Lock, Phone, User, Eye, EyeOff } from 'lucide-react';
+
 
 export default function RegisterPage() {
   const router = useRouter();
