@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "kaamfinder-india",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://kaamfinder-backend.onrender.com/api"
+  }
+}
