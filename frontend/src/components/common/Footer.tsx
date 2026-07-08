@@ -63,7 +63,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-500 flex-shrink-0 mt-1" />
-                <span className="text-gray-300 text-sm">Mumbai, India</span>
+                <span className="text-gray-300 text-sm">Mirdadpur, Ghazipur, Uttar Pradesh 233001, India</span>
               </li>
               <li className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" />
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-gray-300 hover:text-primary-500 text-sm transition-colors">+91 9876543210</a>
+                <a href="tel:+916386703517" className="text-gray-300 hover:text-primary-500 text-sm transition-colors">+91 6386703517</a>
               </li>
             </ul>
           </div>
