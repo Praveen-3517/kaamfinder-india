@@ -64,7 +64,7 @@ export default function ContactPage() {
                       Address
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      123 Business Park, Mumbai, Maharashtra 400001, India
+                      123 Mirdadpur, Ghazipur, Uttar pradesh 233001, India
                     </p>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ export default function ContactPage() {
                       Phone
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                      +91 9876543210
+                      +91 6386703517
                     </p>
                   </div>
                 </div>
