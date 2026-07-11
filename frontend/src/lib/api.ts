@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosError } from 'axios';
 
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-  timeout: 10000,
+  timeout: 60000, // 60 seconds to allow Render free tier to wake up
   headers: {
     'Content-Type': 'application/json',
   },
