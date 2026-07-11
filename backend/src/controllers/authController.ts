@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { Response } from 'express';
 import User from '../models/User';
 import { generateToken } from '../utils/jwt';
@@ -200,6 +201,101 @@ export const googleAuth = async (req: AuthRequest, res: Response) => {
         role: user.role,
       },
     });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const forgotPassword = async (req: AuthRequest, res: Response): Promise<any> => {
+  try {
+    const { email } = req.body;
+    
+    // Allow mock mode logic if DB isn't used
+    let user;
+    try {
+      user = await User.findOne({ email });
+    } catch (dbError) {
+      // Mock mode
+      const mockData = getMockData();
+      user = mockData.users.find((u: any) => u.email === email);
+    }
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found with this email' });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    const resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    const resetPasswordExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    try {
+      await User.findOneAndUpdate(
+        { email },
+        { resetPasswordToken, resetPasswordExpire }
+      );
+    } catch (dbError) {
+      // Mock mode
+      user.resetPasswordToken = resetPasswordToken;
+      user.resetPasswordExpire = resetPasswordExpire;
+    }
+
+    // In a real app, you would send an email here.
+    // For this demonstration without SMTP, we return the token in the response so you can test the UI.
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
+    
+    console.log(`[SIMULATED EMAIL] Password reset requested for ${email}. Link: ${resetUrl}`);
+
+    res.status(200).json({ 
+      message: 'Password reset link generated successfully',
+      simulatedLink: resetUrl,
+      resetToken
+    });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const resetPassword = async (req: AuthRequest, res: Response): Promise<any> => {
+  try {
+    const { token, newPassword } = req.body;
+    
+    const resetPasswordToken = crypto.createHash('sha256').update(token).digest('hex');
+    
+    let user;
+    try {
+      user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: new Date() }
+      });
+    } catch (dbError) {
+      // Mock mode
+      const mockData = getMockData();
+      user = mockData.users.find((u: any) => 
+        u.resetPasswordToken === resetPasswordToken && 
+        new Date(u.resetPasswordExpire) > new Date()
+      );
+    }
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired password reset token' });
+    }
+
+    try {
+      const userDoc = await User.findById(user._id);
+      if (userDoc) {
+        userDoc.password = newPassword;
+        userDoc.resetPasswordToken = undefined;
+        userDoc.resetPasswordExpire = undefined;
+        await userDoc.save();
+      }
+    } catch (dbError) {
+      // Mock mode
+      user.password = newPassword;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+    }
+
+    res.status(200).json({ message: 'Password has been reset successfully' });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

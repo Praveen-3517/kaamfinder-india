@@ -22,6 +22,8 @@ export interface IUser extends Document {
   totalReviews: number;
   createdAt: Date;
   updatedAt: Date;
+  resetPasswordToken?: string;
+  resetPasswordExpire?: Date;
   comparePassword: (password: string) => Promise<boolean>;
 }
 
@@ -82,6 +84,8 @@ const userSchema = new Schema<IUser>(
       type: Number,
       default: 0,
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   { timestamps: true }
 );
