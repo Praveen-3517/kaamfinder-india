@@ -10,15 +10,16 @@ export const register = async (req: AuthRequest, res: Response): Promise<any> =>
     const { name, email, phone, password, role } = req.body;
 
     try {
-      const existingUser = await User.findOne({ email });
+      const emailClean = email.toLowerCase().trim();
+      const existingUser = await User.findOne({ email: emailClean });
       if (existingUser) {
         return res.status(400).json({ message: 'Email already registered' });
       }
 
       const user = new User({
-        name,
-        email,
-        phone,
+        name: name.trim(),
+        email: emailClean,
+        phone: phone.trim(),
         password,
         role,
       });
@@ -82,7 +83,8 @@ export const login = async (req: AuthRequest, res: Response): Promise<any> => {
     const { email, password } = req.body;
 
     try {
-      const user = await User.findOne({ email }).select('+password');
+      const emailClean = email.toLowerCase().trim();
+      const user = await User.findOne({ email: emailClean }).select('+password');
       if (!user) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }

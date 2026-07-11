@@ -39,6 +39,7 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Email is required'],
       unique: true,
       lowercase: true,
+      trim: true,
     },
     phone: {
       type: String,
